@@ -28,33 +28,44 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # streamlit.datafreame(my_fruit_list)
 # import requests
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+        streamlit.error("Please select a fruit to get a information.")
+  else:
+      fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+      fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+      streamlit.dataframe(fruityvice_normalized)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-streamlit.dataframe(fruityvice_normalized)
-# streamlit.text(fruityvice_response.json())
-# write your own comment -what does the next line do? 
-# fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# # write your own comment - what does this do?
-# streamlit.dataframe(fruityvice_normalized)
-streamlit.stop()
+except URLError as e:
+  streamlit.error()
 
-# import snowflake.connector
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_rows)
-# streamlit.text("The fruit load list contains")
-add_my_fruit = streamlit.text_input('What fruit would you like add','jackfruit')
 # streamlit.write('The user entered ', fruit_choice)
-streamlit.text("Thanks for adding jackfruit")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
+
+# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+# fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+# streamlit.dataframe(fruityvice_normalized)
+# # streamlit.text(fruityvice_response.json())
+# # write your own comment -what does the next line do? 
+# # fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+# # # write your own comment - what does this do?
+# # streamlit.dataframe(fruityvice_normalized)
+# streamlit.stop()
+
+# # import snowflake.connector
+# my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+# my_cur = my_cnx.cursor()
+# my_cur.execute("select * from fruit_load_list")
+# my_data_rows = my_cur.fetchall()
+# streamlit.header("The fruit load list contains:")
+# streamlit.dataframe(my_data_rows)
+# # streamlit.text("The fruit load list contains")
+# add_my_fruit = streamlit.text_input('What fruit would you like add','jackfruit')
+# # streamlit.write('The user entered ', fruit_choice)
+# streamlit.text("Thanks for adding jackfruit")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
+# my_cur.execute("insert into fruit_load_list values('from streamlit')")
