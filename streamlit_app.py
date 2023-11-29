@@ -22,9 +22,8 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # my_fruit_list = my_fruit_list.set_index("Fruit")
 # streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
 # streamlit.datafreame(my_fruit_list)
-
-streamlit.header("Fruityvice Fruit Advice!")
 import requests
+streamlit.header("Fruityvice Fruit Advice!")
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 streamlit.text(fruityvice_response)
 # write your own comment -what does the next line do? 
