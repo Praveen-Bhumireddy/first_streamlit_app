@@ -42,6 +42,8 @@ try:
       back_from_function = get_fruityvice_data(fruit_choice)
       streamlit.dataframe(back_from_function)
       
+streamlit.stop()
+    
 
 
 # streamlit.header("Fruityvice Fruit Advice!")
@@ -69,7 +71,6 @@ try:
 # # fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # # # write your own comment - what does this do?
 # # streamlit.dataframe(fruityvice_normalized)
-streamlit.stop()
 
 # # import snowflake.connector
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
